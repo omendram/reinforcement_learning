@@ -18,9 +18,9 @@ class Sarsa(object):
         self.states = np.zeros((180, 140), dtype=float)
         self.actions = [0, 1, 2]
         self.reward = -1
-        self.discount_factor = 0.9
-        self.alpha = 0.9
-        self.td_parameter = 0.6
+        self.discount_factor = 0.95
+        self.alpha = 0.99
+        self.td_parameter = 0.2
         self.e_values = np.zeros((180, 140, 3), dtype=float)
         self.q_table = np.random.randn(180, 140, 3)
 
@@ -32,7 +32,7 @@ class Sarsa(object):
         with open("checkpoint.q", "wb") as check:
             pickle.dump(self.q_table, check)
 
-        self.show_results()
+            self.show_results()
 
     def show_results(self):
         print("EXECUTION")
@@ -78,6 +78,8 @@ class Sarsa(object):
             a = a_next
             values_set = True
             counter += 1
+            if counter % 100 == 0:
+                print(counter)
 
             if done:
                 print(counter)
